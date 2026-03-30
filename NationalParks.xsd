@@ -5,23 +5,24 @@
   <xs:element name="NationalParks">
     <xs:complexType>
       <xs:sequence>
-        <!-- At least one NationalPark must exist -->
-        <xs:element name="NationalPark" maxOccurs="unbounded">
+        <!-- At least one NationalPark must exist, unbounded maximum -->
+        <xs:element name="NationalPark" minOccurs="1" maxOccurs="unbounded">
           <xs:complexType>
             <xs:sequence>
-              <!-- Name of the national park -->
-              <xs:element name="Name" type="xs:string"/>
-              <!-- One or more phone numbers allowed -->
-              <xs:element name="Phone" type="xs:string" maxOccurs="unbounded"/>
-              <!-- Address with required NearestAirport attribute -->
-              <xs:element name="Address">
+              <!-- Name of the national park - exactly one required -->
+              <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+              <!-- One or more phone numbers allowed per park -->
+              <xs:element name="Phone" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+              <!-- Address element - exactly one required -->
+              <xs:element name="Address" minOccurs="1" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="Number"  type="xs:string"/>
-                    <xs:element name="Street"  type="xs:string"/>
-                    <xs:element name="City"    type="xs:string"/>
-                    <xs:element name="State"   type="xs:string"/>
-                    <xs:element name="Zip"     type="xs:string"/>
+                    <!-- Address sub-elements in left-to-right order as per Figure 1 -->
+                    <xs:element name="Number" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="Street" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="City"   type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="State"  type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="Zip"    type="xs:string" minOccurs="1" maxOccurs="1"/>
                   </xs:sequence>
                   <!-- NearestAirport is a REQUIRED attribute on Address -->
                   <xs:attribute name="NearestAirport" type="xs:string" use="required"/>
